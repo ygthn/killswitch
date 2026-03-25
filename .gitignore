@@ -1,0 +1,22 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserdata
+*.xcworkspace
+xcuserdata/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xccheckout
+*.moved-aside
+
+# Python
+__pycache__/
+*.pyc
+generate_icon.py
+
+# macOS
+.DS_Store
+*.swp
+*~
