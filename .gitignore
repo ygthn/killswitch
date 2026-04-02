@@ -1,3 +1,8 @@
+# App source (private - not published)
+Killswitch/
+Killswitch.xcodeproj/
+APPSTORE_METADATA.md
+
 # Xcode
 build/
 DerivedData/
