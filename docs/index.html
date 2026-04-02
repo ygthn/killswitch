@@ -3,92 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Killswitch - Privacy Policy</title>
+    <title>Killswitch - Force Quit Apps Instantly</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0a0f;
-            color: #e0e0e0;
-            line-height: 1.7;
-            padding: 40px 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            background: #0a0a0a;
+            color: #f5f5f7;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
-        .container {
-            max-width: 680px;
-            margin: 0 auto;
+        .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 120px 0 80px;
         }
-        h1 {
-            font-size: 2em;
-            color: #e62d2d;
-            margin-bottom: 8px;
+        .hero-icon {
+            font-size: 72px;
+            margin-bottom: 24px;
         }
-        .subtitle {
-            color: #888;
-            margin-bottom: 40px;
-            font-size: 0.95em;
-        }
-        h2 {
-            color: #fff;
-            font-size: 1.2em;
-            margin-top: 32px;
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
             margin-bottom: 12px;
         }
-        p {
-            margin-bottom: 16px;
-            color: #bbb;
+        .hero p {
+            font-size: 20px;
+            color: #a1a1a6;
+            max-width: 480px;
+            margin: 0 auto 32px;
         }
         .badge {
             display: inline-block;
-            background: #1a1a2e;
-            border: 1px solid #e62d2d33;
-            color: #e62d2d;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            margin-bottom: 32px;
+            background: #1d1d1f;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 8px 20px;
+            font-size: 14px;
+            color: #a1a1a6;
         }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding: 40px 0 80px;
+        }
+        .feature {
+            background: #1d1d1f;
+            border-radius: 16px;
+            padding: 28px 24px;
+        }
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+        .feature h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .feature p {
+            font-size: 14px;
+            color: #86868b;
+        }
+
+        /* Privacy */
+        .privacy {
+            padding: 60px 0;
+            border-top: 1px solid #1d1d1f;
+        }
+        .privacy h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        .privacy p, .privacy li {
+            font-size: 15px;
+            color: #a1a1a6;
+            margin-bottom: 12px;
+        }
+        .privacy ul { padding-left: 20px; }
+
+        /* Support */
+        .support {
+            padding: 60px 0;
+            border-top: 1px solid #1d1d1f;
+        }
+        .support h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .support p {
+            font-size: 15px;
+            color: #a1a1a6;
+            margin-bottom: 12px;
+        }
+        .support a {
+            color: #2997ff;
+            text-decoration: none;
+        }
+        .support a:hover { text-decoration: underline; }
+
+        /* Footer */
         footer {
-            margin-top: 60px;
-            padding-top: 20px;
-            border-top: 1px solid #222;
-            color: #555;
-            font-size: 0.85em;
+            padding: 40px 0;
+            border-top: 1px solid #1d1d1f;
+            text-align: center;
+            font-size: 13px;
+            color: #6e6e73;
+        }
+
+        @media (max-width: 600px) {
+            .hero { padding: 80px 0 48px; }
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 17px; }
+            .features { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Killswitch</h1>
-        <p class="subtitle">Force quit apps instantly from your menu bar.</p>
-        <span class="badge">Privacy Policy</span>
+        <section class="hero">
+            <div class="hero-icon">&#9889;</div>
+            <h1>Killswitch</h1>
+            <p>Force quit any app instantly from your menu bar. No bloat. No background processes.</p>
+            <span class="badge">macOS 14.0+</span>
+        </section>
 
-        <h2>Overview</h2>
-        <p>Killswitch is a lightweight macOS utility that lives in your menu bar and lets you view and force quit running applications. Your privacy is important to us.</p>
+        <section class="features">
+            <div class="feature">
+                <div class="feature-icon">&#128293;</div>
+                <h3>Instant Quit</h3>
+                <p>One click to quit any running app. Smart retry for unresponsive apps.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#128270;</div>
+                <h3>Quick Search</h3>
+                <p>Find apps instantly with real-time search filtering.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#9898;</div>
+                <h3>Zero Footprint</h3>
+                <p>No background CPU usage. No memory overhead. Lives quietly in your menu bar.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#128274;</div>
+                <h3>Fully Private</h3>
+                <p>No data collection. No analytics. No network requests. 100% offline.</p>
+            </div>
+        </section>
 
-        <h2>Data Collection</h2>
-        <p><strong>Killswitch does not collect, store, transmit, or share any personal data whatsoever.</strong></p>
-        <p>The app only reads the list of currently running applications on your Mac using standard macOS APIs (NSWorkspace). This information is displayed locally on your screen and is never sent anywhere.</p>
+        <section class="privacy" id="privacy">
+            <h2>Privacy Policy</h2>
+            <p><strong>Last updated:</strong> April 2, 2026</p>
+            <p>Killswitch does not collect, store, or transmit any personal data. The app operates entirely on your device and makes zero network requests.</p>
+            <ul>
+                <li>No personal information is collected</li>
+                <li>No usage analytics or tracking</li>
+                <li>No data is shared with third parties</li>
+                <li>No network connections are made</li>
+                <li>Process information is read only to display running apps and is never stored</li>
+            </ul>
+            <p>If you have questions about this policy, please open an issue on our GitHub repository.</p>
+        </section>
 
-        <h2>No Analytics</h2>
-        <p>Killswitch contains no analytics, tracking, telemetry, or crash reporting frameworks. No data leaves your device.</p>
-
-        <h2>No Network Access</h2>
-        <p>Killswitch does not make any network connections. It operates entirely offline.</p>
-
-        <h2>No Third-Party Services</h2>
-        <p>Killswitch does not integrate with any third-party services, SDKs, or APIs.</p>
-
-        <h2>Local Storage</h2>
-        <p>The only data Killswitch stores locally is your panel size preference, saved via macOS UserDefaults. No other data is persisted.</p>
-
-        <h2>Changes to This Policy</h2>
-        <p>If we ever update this privacy policy, the changes will be posted on this page.</p>
-
-        <h2>Contact</h2>
-        <p>If you have any questions about this privacy policy, please contact us via the App Store listing.</p>
+        <section class="support" id="support">
+            <h2>Support</h2>
+            <p>Having issues or have a feature request? We'd love to hear from you.</p>
+            <p><a href="https://github.com/ygthn/killswitch/issues">Open an issue on GitHub</a></p>
+            <p>You can also reach us by email at <a href="mailto:support@killswitch.app">support@killswitch.app</a></p>
+        </section>
 
         <footer>
-            <p>Last updated: March 25, 2026</p>
+            <p>&copy; 2026 Killswitch. All rights reserved.</p>
         </footer>
     </div>
 </body>

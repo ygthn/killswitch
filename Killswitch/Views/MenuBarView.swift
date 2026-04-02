@@ -24,6 +24,70 @@ struct MenuBarView: View {
 
             Divider().padding(.horizontal, 8)
 
+            // Quit failure banner
+            if case .failed(let failedPid) = processService.quitStatus {
+                let failedName = processService.processes.first(where: { $0.id == failedPid })?.name ?? "App"
+                VStack(spacing: 8) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .font(.system(size: 13))
+                            .foregroundStyle(.orange)
+                        Text("\(failedName) kapatılamadı")
+                            .font(.system(size: 12, weight: .medium))
+                    }
+
+                    Text("Uygulama yanıt vermiyor. Activity Monitor ile kapatabilirsiniz.")
+                        .font(.system(size: 10))
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+
+                    HStack(spacing: 8) {
+                        Button("Kapat") {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                processService.dismissFailure()
+                            }
+                        }
+                        .buttonStyle(.plain)
+                        .font(.system(size: 11))
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 4)
+                        .background(RoundedRectangle(cornerRadius: 6).fill(.quaternary))
+
+                        Button("Activity Monitor") {
+                            processService.openActivityMonitor()
+                        }
+                        .buttonStyle(.plain)
+                        .font(.system(size: 11, weight: .semibold))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 4)
+                        .background(RoundedRectangle(cornerRadius: 6).fill(.orange))
+                    }
+                }
+                .padding(12)
+                .frame(maxWidth: .infinity)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.orange.opacity(0.08))
+                        .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(Color.orange.opacity(0.2), lineWidth: 1))
+                )
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .transition(.opacity.combined(with: .move(edge: .top)))
+            }
+
+            // Quitting indicator
+            if processService.quitStatus == .quitting {
+                HStack(spacing: 8) {
+                    ProgressView()
+                        .controlSize(.small)
+                    Text("Kapatılıyor...")
+                        .font(.system(size: 11))
+                        .foregroundStyle(.secondary)
+                }
+                .padding(.vertical, 6)
+            }
+
             // List (fixed height)
             ScrollView {
                 if filteredProcesses.isEmpty {
@@ -170,6 +234,7 @@ struct MenuBarView: View {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 4)
                 .background(RoundedRectangle(cornerRadius: 6).fill(.red))
+                .disabled(processService.quitStatus == .quitting)
             }
         }
         .padding(12)

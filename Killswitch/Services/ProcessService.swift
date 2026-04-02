@@ -1,9 +1,16 @@
 import Foundation
 import AppKit
 
+enum QuitStatus: Equatable {
+    case idle
+    case quitting
+    case failed(pid_t)
+}
+
 @MainActor
 final class ProcessService: ObservableObject {
     @Published var processes: [AppProcessInfo] = []
+    @Published var quitStatus: QuitStatus = .idle
 
     func snapshot() {
         let runningApps = NSWorkspace.shared.runningApplications
@@ -35,10 +42,44 @@ final class ProcessService: ObservableObject {
     }
 
     func forceQuit(pid: pid_t) {
-        if let app = NSRunningApplication(processIdentifier: pid) {
-            app.forceTerminate()
+        guard let app = NSRunningApplication(processIdentifier: pid) else {
+            processes.removeAll { $0.id == pid }
+            return
         }
-        processes.removeAll { $0.id == pid }
+
+        quitStatus = .quitting
+
+        // First attempt: graceful terminate (Apple Event - works in sandbox)
+        app.terminate()
+
+        // Wait and retry with escalation
+        Task { @MainActor in
+            // Wait 2 seconds, check if terminated
+            try? await Task.sleep(nanoseconds: 2_000_000_000)
+
+            if app.isTerminated {
+                processes.removeAll { $0.id == pid }
+                quitStatus = .idle
+                snapshot()
+                return
+            }
+
+            // Second attempt
+            app.forceTerminate()
+
+            try? await Task.sleep(nanoseconds: 1_500_000_000)
+
+            if app.isTerminated {
+                processes.removeAll { $0.id == pid }
+                quitStatus = .idle
+                snapshot()
+                return
+            }
+
+            // Failed - show escalation prompt
+            quitStatus = .failed(pid)
+            snapshot()
+        }
     }
 
     func gracefulQuit(pid: pid_t) {
@@ -46,5 +87,14 @@ final class ProcessService: ObservableObject {
             app.terminate()
         }
         processes.removeAll { $0.id == pid }
+    }
+
+    func openActivityMonitor() {
+        NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Applications/Utilities/Activity Monitor.app"))
+        quitStatus = .idle
+    }
+
+    func dismissFailure() {
+        quitStatus = .idle
     }
 }
